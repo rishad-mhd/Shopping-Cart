@@ -3,8 +3,16 @@ var collection = require('../config/colllections')
 var objectId = require('mongodb').ObjectId
 module.exports = {
     addProduct: (product, callback) => {
+        price=parseInt(product.price)
         console.log(product)
-        db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((data) => {
+        db.get().collection(collection.PRODUCT_COLLECTION)
+        .insertOne({
+            name:product.name,
+            category:product.category,
+            price:price,
+            description:product.description
+
+        }).then((data) => {
             console.log(data)
             callback(data.insertedId);
         })
@@ -31,13 +39,14 @@ module.exports = {
         })
     },
     updateProduct: (proId, proDetails) => {
+        let price=parseInt(proDetails.price)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCT_COLLECTION)
             .updateOne({ _id: objectId(proId) },{
                 $set:{
                     name:proDetails.name,
                     description:proDetails.description,
-                    price:proDetails.price,
+                    price:price,
                     category:proDetails.category
                 }
             }).then((response)=>{

@@ -1,0 +1,43 @@
+<section>
+    <div class="container">
+        <form action="">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Enter Delivery Details</h2>
+                    <div class="">
+                        <label for="">Address</label>
+                        <input type="text" class="form-control" placeholder="">
+                        <label for="">Pincode</label>
+                        <input type="text" class="form-control" placeholder="">
+                        <label for="">Mobile</label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mt-5" style="width:18rem">
+                        <div class="card-body">
+                            Total Amount:Rs.{{total}}
+                            <hr>
+                            <p>Payment Method</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    COD
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Online payment
+                                </label>
+                                <button class="btn btn-primary pt-1 pb-1 float-right mt-4">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
