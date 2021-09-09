@@ -1,12 +1,8 @@
 <section>
-    {{#if order}}
     <div class="container">
-        <h1 class="text-center">Your Orders</h1>
-        {{#if pending}}
-        <a href="/pending-orders" class="btn btn-warning float-right">Pending Orders</a>
-        {{/if}}
+        <h1 class="text-center">Your Pending Orders</h1>
         <div style="margin-top: 5em;" class="col-12">
-            <table class="table" id="ordersTable">
+            <table class="table">
                 <thead>
                     <th>Date</th>
                     <th>Address</th>
@@ -18,7 +14,7 @@
                     <th>options</th>
                 </thead>
                 <tbody>
-                    {{#each order}}
+                    {{#each pending}}
                     <tr>
                         <td style="width: 17em;">{{this.date}}</td>
                         <td>{{this.deliveryDetails.address}}</td>
@@ -28,7 +24,7 @@
                         <td>{{this.paymentMethod}}</td>
                         <td>{{this.status}}</td>
                         <td>
-                            <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
+                            <a href="/replace-order/{{this._id}}" class="btn btn-primary">Place Order</a>
                         </td>
                     </tr>
                     {{/each}}
@@ -36,12 +32,4 @@
             </table>
         </div>
     </div>
-    {{else}}
-    <h1 class="text-center">No Orders</h1>
-    {{/if}}
 </section>
-<script>
-    $(document).ready( function () {
-    $('#ordersTable').DataTable();
-} )
-</script>

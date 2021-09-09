@@ -7,13 +7,13 @@
                     <div>
                         <label for="">Address</label>
                         <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Enter your Address">
+                            placeholder="Enter your Address" required>
                         <label for="">Pincode</label>
                         <input type="text" class="form-control" id="pincode" name="pincode"
-                            placeholder="Enter Your Pincode">
+                            placeholder="Enter Your Pincode" required>
                         <label for="">Mobile</label>
                         <input type="text" class="form-control" id="mobile" name="mobile"
-                            placeholder="Enter your Mobile Number">
+                            placeholder="Enter your Mobile Number" required>
                         <input type="text" name="userId" id="" value="{{user._id}}" hidden>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
             method: 'post',
             data: $('#checkout-form').serialize(),
             success: (response) => {
-                alert(response)
+                alert("Order Initiated")
                 if (response.codSuccess) {
                     location.href = '/order-success'
 
@@ -92,7 +92,14 @@
                 payment,
                 order
             },
-            method:'post'
+            method:'post',
+            success:(response)=>{
+                if(response.status){
+                    location.href = '/order-success'
+                }else{
+                    alert('Payment Failed')
+                }
+            }
         })
     }
 </script>

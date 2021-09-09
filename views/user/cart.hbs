@@ -19,10 +19,10 @@
                     <td>Rs.{{this.product.price}}</td>
                     <td>
                         <button class=" cart-item-count btn"
-                            onclick='changeQuantity("{{this._id}}","{{this.product._id}}","{{../user}}",-1)'>-</button>
+                            onclick='changeQuantity("{{this._id}}","{{this.product._id}}","{{../user._id}}",-1)'>-</button>
                         <span id="{{this.product._id}}">{{this.quantity}}</span>
                         <button class=" cart-item-count btn"
-                            onclick='changeQuantity("{{this._id}}","{{this.product._id}}","{{../user}}",1)'>+</button>
+                            onclick='changeQuantity("{{this._id}}","{{this.product._id}}","{{../user._id}}",1)'>+</button>
                     </td>
                     <td><a onclick='removeItem("{{this._id}}","{{this.product._id}}")' class="btn btn-danger">Remove</a></td>
                 </tr>

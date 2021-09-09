@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Products</a>
                     </li>
@@ -21,9 +21,7 @@
                     </li>
                     {{/if}}
                 </ul>
-
-            </div>
-            <div class="dropdown">
+                <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{#if user}}
@@ -40,6 +38,8 @@
                     {{/if}}
                 </div>
             </div>
+            </div>
+            
         </div>
     </nav>
 </header>

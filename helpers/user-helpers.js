@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 var objectId = require('mongodb').ObjectId
 const { response } = require('express')
 const Razorpay = require('razorpay')
+const { resolve } = require('path')
 var instance = new Razorpay({
     key_id: 'rzp_test_FDd6Q3zsYHmlhv',
     key_secret: 'goQ89GF6Sxf6h6TsjkUpjZn8',
@@ -200,6 +201,7 @@ module.exports = {
         })
     },
     placeOrder: (order, products, total) => {
+        const date=new Date().toLocaleString();
         return new Promise((resolve, reject) => {
             console.log(order, products, total);
             let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
@@ -214,7 +216,7 @@ module.exports = {
                 products: products,
                 totalAmount: total,
                 status: status,
-                date: new Date()
+                date:date
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
                 db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) })
@@ -271,9 +273,9 @@ module.exports = {
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {
-                amount: total,  // amount in the smallest currency unit
+                amount: total*100,  // amount in the smallest currency unit
                 currency: "INR",
-                receipt: ""+orderId
+                receipt: "" + orderId
             };
             instance.orders.create(options, function (err, order) {
                 if (err) {
@@ -283,6 +285,81 @@ module.exports = {
                     resolve(order)
                 }
             });
+        })
+    },
+    verifyPayment: (details) => {
+        return new Promise(async(resolve, reject) => {
+            const {
+                createHmac
+            } = await import('crypto');
+            let hmac = createHmac('sha256', 'goQ89GF6Sxf6h6TsjkUpjZn8');
+            hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]']);
+            hmac=hmac.digest('hex')
+            if(hmac==details['payment[razorpay_signature]']){
+                resolve()
+            }else{
+                reject()
+            }
+        })
+    },changePaymentStatus:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    status:'placed'
+                }
+            }
+            ).then(()=>{
+                resolve()
+            })
+        })
+    },
+    getPendingOrder:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let pending=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userId),status:'pending'}).toArray()
+            resolve(pending)
+        })
+        
+    },
+    replacePendingOrders:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let pendingOrder=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: { _id: objectId(orderId) }
+                },
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $project: {
+                        item: '$products.item',
+                        quantity: '$products.quantity'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                },
+                {
+                    $project: {
+                        item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
+                    }
+                }
+            ]).toArray()
+            resolve(pendingOrder)
+        })
+    },
+    deletePendingOrder:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION).deleteOne({_id:objectId(orderId)}).then(()=>{
+                resolve()
+            })
+            
         })
     }
 

@@ -7,22 +7,38 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/admin">All products</a>
                     </li>
+                    {{#if adminLogin}}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Orders</a>
+                        <a class="nav-link" href="/admin/view-orders">All Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Users</a>
+                        <a class="nav-link" href="/admin/view-users">All Users</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                {{/if}}
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{#if adminLogin}}
+                    Shopping Cart
+                    {{else}}
+                    Account
+                    {{/if}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {{#if adminLogin}}
+                    <a class="dropdown-item" href="/admin/logout">Logout</a>
+                    {{else}}
+                    <a class="dropdown-item" href="/admin/login">Login</a>
+                    {{/if}}
+                </div>
             </div>
+            </div>
+            
         </div>
     </nav>
 </header>

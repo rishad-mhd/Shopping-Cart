@@ -1,3 +1,5 @@
+const { response } = require("express")
+
 function addTocart(proId) {
     $.ajax({
         url: '/add-to-cart/' + proId,
@@ -9,5 +11,16 @@ function addTocart(proId) {
                 $("#cart-count").html(count)
             }
         }
+    })
+}
+function shipProduct(orderId){
+    $.ajax({
+        url:'/admin/ship-product/'+orderId,
+        method:'get',
+        success:(response)=>{
+            alert('Product Shipped')
+            location.reload()
+        }
+
     })
 }
