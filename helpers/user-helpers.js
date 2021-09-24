@@ -200,7 +200,7 @@ module.exports = {
             resolve(total[0].total)
         })
     },
-    placeOrder: (order, products, total) => {
+    placeOrder: (order, products, total,user) => {
         const date=new Date().toLocaleString();
         return new Promise((resolve, reject) => {
             console.log(order, products, total);
@@ -212,6 +212,8 @@ module.exports = {
                     pincode: order.pincode
                 },
                 userId: objectId(order.userId),
+                name:user.name,
+                email:user.email,
                 paymentMethod: order['payment-method'],
                 products: products,
                 totalAmount: total,
@@ -360,6 +362,12 @@ module.exports = {
                 resolve()
             })
             
+        })
+    },
+    getCategoryProducts:(value)=>{
+        return new Promise(async(resolve,reject)=>{
+           let categorisedProducts=await db.get().collection(collection.PRODUCT_COLLECTION).find({category:value}).toArray()
+           resolve(categorisedProducts)
         })
     }
 

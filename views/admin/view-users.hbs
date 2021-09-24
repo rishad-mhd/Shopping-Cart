@@ -1,10 +1,21 @@
 <section>
     <div class="container">
         <h1 class="text-center">All Users</h1>
-        {{#each user}}
-        <ul>
-            <li> {{this.name}}</li>
-        </ul>
-        {{/each}}
+        <div class="row">
+            {{#each user}}
+            <div class="col-md-3 mx-3">
+                <div class="card" style="width: 18rem;">
+                    <div >
+                        <img src="https://cahsi.utep.edu/wp-content/uploads/kisspng-computer-icons-user-clip-art-user-5abf13db5624e4.1771742215224718993529.png" 
+                        class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.email}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
     </div>
 </section>

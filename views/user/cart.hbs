@@ -1,13 +1,15 @@
-<section>
+<section  style="padding-top: 8em;">
     {{#if products}}
     <div class="container">
-        <table class="table mt-5">
+        <h1 class="text-center">Your Cart</h1>
+        <table class="table" id="cartTable">
             <thead>
                 <tr>
                     <th scope="col">Items</th>
                     <th scope="col">title</th>
                     <th scope="col">Price</th>
                     <th scope="col">quantity</th>
+                    <th>Option</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +41,9 @@
 </section>
 
 <script>
+    $(document).ready( function () {
+    $('#cartTable').DataTable();
+} )
     function changeQuantity(cartId, proId,userId, count) {
         let quantity=parseInt(document.getElementById(proId).innerHTML)
         count = parseInt(count)

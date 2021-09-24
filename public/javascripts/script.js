@@ -6,8 +6,11 @@ function addTocart(proId) {
         method: 'get',
         success: (response) => {
             if(response.status){
+                let count1=$('#cart-count1').html()
                 let count=$('#cart-count').html()
                 count=parseInt(count)+1
+                count1=parseInt(count1)+1
+                $("#cart-count1").html(count1)
                 $("#cart-count").html(count)
             }
         }
