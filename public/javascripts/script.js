@@ -5,22 +5,25 @@ function addTocart(proId) {
         url: '/add-to-cart/' + proId,
         method: 'get',
         success: (response) => {
-            if(response.status){
-                let count1=$('#cart-count1').html()
-                let count=$('#cart-count').html()
-                count=parseInt(count)+1
-                count1=parseInt(count1)+1
+            if (response.status) {
+                let count1 = $('#cart-count1').html()
+                let count = $('#cart-count').html()
+                count = parseInt(count) + 1
+                count1 = parseInt(count1) + 1
                 $("#cart-count1").html(count1)
                 $("#cart-count").html(count)
+            } else {
+                let alert="Please login to add to cart"
+                $("#userNotFound").html(alert)
             }
         }
     })
 }
-function shipProduct(orderId){
+function shipProduct(orderId) {
     $.ajax({
-        url:'/admin/ship-product/'+orderId,
-        method:'get',
-        success:(response)=>{
+        url: '/admin/ship-product/' + orderId,
+        method: 'get',
+        success: (response) => {
             alert('Product Shipped')
             location.reload()
         }

@@ -5,10 +5,10 @@
                 <h2 class="text-center">Add Products</h2>
                 <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
                     <label for="">Name</label>
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" required>
 
                      <label for="">Category</label>
-                    <select name="category" id="" class="form-control">
+                    <select name="category" id="" class="form-control" >
                         <option value="Mobile">Mobile</option>
                         <option value="Laptop">Laptop</option>
                         <option value="Smart Devices">Smart Devices</option>
@@ -16,13 +16,13 @@
                     </select>
 
                     <label for="">Price</label>
-                    <input type="number" name="price" class="form-control">
+                    <input type="number" name="price" class="form-control" required>
 
                      <label for="">Description</label>
-                    <input type="text" name="description" class="form-control">
+                    <input type="text" name="description" class="form-control" required>
 
                      <label for="">Image</label>
-                    <input type="file" name="image" class="form-control">
+                    <input type="file" name="image" class="form-control" required>
 
                     <button type="submit" class="btn btn-success mt-4">Submit</button>
                 </form>

@@ -12,14 +12,14 @@ const verifyLogin=(req,res,next)=>{
   }
 }
 /* GET users listing. */
-router.get('/',verifyLogin, function (req, res, next) {
+router.get('/', function (req, res, next) {
   let adminLogin=req.session.admin
   productHelpers.getAllProducts().then((products) => {
     console.log(products)
     res.render('admin/view-products', { admin: true, products,adminLogin })
   })
 });
-router.get('/add-product',verifyLogin, function (req, res) {
+router.get('/add-product', function (req, res) {
   res.render('admin/add-product', { admin: true,adminLogin:req.session.admin })
 
 })
@@ -44,7 +44,7 @@ router.get('/delete-product/:id', (req, res) => {
     res.redirect("/admin/")
   })
 })
-router.get('/edit-product/:id',verifyLogin, async (req, res) => {
+router.get('/edit-product/:id', async (req, res) => {
   let product = await productHelpers.getProductDetails(req.params.id)
   console.log(product)
   res.render('admin/edit-product', { product, admin: true,adminLogin:req.session.admin })
@@ -60,12 +60,12 @@ router.post("/edit-product/:id", (req, res) => {
     }
   })
 })
-router.get('/view-users',verifyLogin, async (req, res) => {
+router.get('/view-users', async (req, res) => {
   let user = await productHelpers.getAllusers()
   console.log(user)
   res.render('admin/view-users', { admin: true, user,adminLogin:req.session.admin})
 })
-router.get('/view-orders',verifyLogin, async (req, res) => {
+router.get('/view-orders', async (req, res) => {
   let order = await productHelpers.getPlacedOrders()
   console.log(order);
   res.render('admin/view-orders', { admin: true, order,adminLogin:req.session.admin})
@@ -76,7 +76,7 @@ router.get('/ship-product/:id', (req, res) => {
     res.json({ status: true })
   })
 })
-router.get('/view-shipped-orders',verifyLogin, async (req, res) => {
+router.get('/view-shipped-orders', async (req, res) => {
   let shippedOrders = await productHelpers.getShippedOrders()
   res.render('admin/view-shipped-orders', { shippedOrders, admin: true,adminLogin:req.session.admin})
 })

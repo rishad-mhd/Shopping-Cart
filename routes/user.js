@@ -36,9 +36,10 @@ router.get('/signup',(req,res)=>{
   res.render('user/signup')
 })
 router.post('/signup',(req,res)=>{
+  let name = req.body.name
   userHelpers.doSignup(req.body).then((response)=>{
     console.log(response)
-    req.session.user=response
+    req.session.user={_id:response,name}
     req.session.user.loggedIn=true
     
     res.redirect('/')
@@ -71,14 +72,20 @@ router.get('/cart',verifyLogin,async(req,res)=>{
 })
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api-call')
+  if(req.session.user){
   userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
     res.json({status:true})
   })
+  }else{
+    res.json({status:false})
+  }
 })
 router.post('/change-product-quantity',(req,res,next)=>{
   userHelpers.changeProductQuantity(req.body).then(async(response)=>{
-    
+    console.log(response);
+    if (response.status){
     response.total=await userHelpers.getTotalAmount(req.body.user)
+    }
     res.json(response)
   })
 })
@@ -149,8 +156,12 @@ router.get('/replace-order/:id',async(req,res)=>{
 })
 router.get('/category/:value',async(req,res)=>{
   value=req.params.value;
+  let cartCount=null
   let products=await userHelpers.getCategoryProducts(value)
-  res.render('user/category',{products,user:req.session.user,value})
+  if(req.session.user){
+    cartCount=await userHelpers.getCartCount(req.session.user._id)
+    }
+  res.render('user/category',{products,user:req.session.user,value,cartCount})
 })
 
 

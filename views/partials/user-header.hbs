@@ -3,9 +3,8 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Shopping Cart</a>
 
-            <span><a class="btn navbar-toggler" href="/cart"><i
-                        class="fas fa-shopping-cart"></i><span class="badge badge-success mx-2"
-                        id="cart-count1">{{cartCount}}</span></a></span>
+            <span><a class="btn navbar-toggler" href="/cart"><i class="fas fa-shopping-cart"></i><span
+                        class="badge badge-success mx-2" id="cart-count1">{{cartCount}}</span></a></span>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +24,9 @@
                         <a class="nav-link" href="/order">Orders</a>
                     </li>
                     {{/if}}
+                    <div>
+                    <a href="/login" class="alert text-white pt-1" style="position: fixed;z-index: 2;" id="userNotFound">{{alert}}</a>
+                </div>
                 </ul>
                 <div class="dropdown">
                     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
