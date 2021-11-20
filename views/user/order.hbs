@@ -6,7 +6,7 @@
         <a href="/pending-orders" class="btn btn-warning float-right">Pending Orders</a>
         {{/if}}
         <div style="margin-top: 5em;" class="col-12">
-            <table class="table" id="ordersTable">
+            <table class="table">
                 <thead>
                     <th>Date</th>
                     <th>Address</th>
@@ -40,8 +40,3 @@
     <h1 class="text-center">No Orders</h1>
     {{/if}}
 </section>
-<script>
-    $(document).ready( function () {
-    $('#ordersTable').DataTable();
-} )
-</script>

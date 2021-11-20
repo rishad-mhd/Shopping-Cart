@@ -1,8 +1,8 @@
-<section  style="padding-top: 8em;">
+<section style="padding-top: 8em;">
     {{#if products}}
     <div class="container">
         <h1 class="text-center">Your Cart</h1>
-        <table class="table" id="cartTable">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Items</th>
@@ -26,7 +26,8 @@
                         <button class=" cart-item-count btn"
                             onclick='changeQuantity("{{this._id}}","{{this.product._id}}","{{../user._id}}",1)'>+</button>
                     </td>
-                    <td><a onclick='removeItem("{{this._id}}","{{this.product._id}}")' class="btn btn-danger">Remove</a></td>
+                    <td><a onclick='removeItem("{{this._id}}","{{this.product._id}}")' class="btn btn-danger">Remove</a>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -41,42 +42,39 @@
 </section>
 
 <script>
-    $(document).ready( function () {
-    $('#cartTable').DataTable();
-} )
-    function changeQuantity(cartId, proId,userId, count) {
-        let quantity=parseInt(document.getElementById(proId).innerHTML)
+    function changeQuantity(cartId, proId, userId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
         count = parseInt(count)
         $.ajax({
             url: '/change-product-quantity',
             data: {
-                user:userId,
+                user: userId,
                 cart: cartId,
                 product: proId,
                 count: count,
-                quantity:quantity
+                quantity: quantity
             },
             method: 'post',
             success: (response) => {
                 if (response.removeProduct) {
                     alert("Product Removed From Cart")
                     location.reload()
-                }else{
-                    document.getElementById(proId).innerHTML=quantity+count
-                    document.getElementById("total").innerHTML=response.total
+                } else {
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById("total").innerHTML = response.total
                 }
             }
         })
     }
-    function removeItem(cartId,proId){
+    function removeItem(cartId, proId) {
         $.ajax({
-            url:"/remove-cart-item",
-            data:{
-                cart:cartId,
-                product:proId
+            url: "/remove-cart-item",
+            data: {
+                cart: cartId,
+                product: proId
             },
-            method:'post',
-            success:(response)=>{
+            method: 'post',
+            success: (response) => {
                 alert("Product Removed From Cart")
                 location.reload()
             }

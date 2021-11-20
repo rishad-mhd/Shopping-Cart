@@ -68,7 +68,7 @@
             "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "handler": function (response) {
 
-                verifyPayment(response,order)
+                verifyPayment(response, order)
             },
             "prefill": {
                 "name": "Gaurav Kumar",
@@ -85,18 +85,18 @@
         var rzp1 = new Razorpay(options);
         rzp1.open();
     }
-    function verifyPayment(payment,order){
+    function verifyPayment(payment, order) {
         $.ajax({
-            url:'/verify-payment',
-            data:{
+            url: '/verify-payment',
+            data: {
                 payment,
                 order
             },
-            method:'post',
-            success:(response)=>{
-                if(response.status){
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
                     location.href = '/order-success'
-                }else{
+                } else {
                     alert('Payment Failed')
                 }
             }
@@ -122,5 +122,13 @@
 
     .payment {
         padding-bottom: 16px;
+    }
+
+    @media only screen and (max-width:700px) {
+
+        .ml-5,
+        .mx-5 {
+            margin-left: 0rem!important;
+        }
     }
 </style>

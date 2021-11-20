@@ -1,8 +1,8 @@
 <section>
     <div class="container" style="padding-top: 5em;">
-        <div class="" >
+        <div class="">
             <h3 class="text-center">Categories</h3>
-            <div class="row col-md-12" style="padding-left:10em ;">
+            <div class="row col-md-12 category-menu">
                 <a href="/category/Mobile" class="btn">
                     <div class="card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuFdVngkG5TS0fuQDFjgjnnGlSiALJJ2x9-Q&usqp=CAU"
@@ -47,12 +47,14 @@
             {{#each products}}
             <div class="col-md-3 p-3">
                 <div class="card" style="width: 16rem;">
-                    <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="..." style="height: 19rem;">
+                    <div style="height: 19rem;">
+                        <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{this.name}}</h5>
                         <h6 class="card-text">Rs.{{this.price}}</h6>
                         <p class="card-text">{{this.description}}</p>
-                        <button   onclick="addTocart('{{this._id}}')" class="btn btn-primary">Add to Cart</button>
+                        <button onclick="addTocart('{{this._id}}')" class="btn btn-primary">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -60,3 +62,13 @@
         </div>
     </div>
 </section>
+<style>
+    .category-menu{
+        padding-left: 10em;
+    }
+    @media only screen and (max-width:700px){
+        .category-menu{
+            padding-left: 5em;
+        }
+    }
+</style>
